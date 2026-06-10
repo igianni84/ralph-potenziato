@@ -1,6 +1,8 @@
-# Claude Code Project Template
+# Ralph Potenziato
 
-A reusable project template for structured, iterative development with Claude Code. Includes workflow orchestration, autonomous agent loops (Ralph), PRD-driven development, and a knowledge accumulation system.
+> A reusable **Claude Code** project template for structured, **autonomous** development — a two-step PRD pipeline, the Ralph agent loop, a cross-session knowledge system, and a decision journal.
+
+**Requirements:** [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) · `jq` (`brew install jq`, used by Ralph).
 
 ## Quick Start
 
