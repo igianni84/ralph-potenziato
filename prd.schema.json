@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ralph PRD",
+  "description": "Schema for Ralph autonomous agent PRD files (tasks/prd-*.json)",
+  "type": "object",
+  "required": ["project", "branchName", "description", "userStories"],
+  "additionalProperties": false,
+  "properties": {
+    "project": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Project name"
+    },
+    "branchName": {
+      "type": "string",
+      "pattern": "^ralph/[a-z0-9-]+$",
+      "description": "Git branch name, must be prefixed with ralph/ and use kebab-case"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Feature description from PRD title/intro"
+    },
+    "userStories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "description", "acceptanceCriteria", "priority", "passes", "notes"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^US-[0-9]{3}$",
+            "description": "Sequential story ID (US-001, US-002, etc.)"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "User story in 'As a [user], I want [feature] so that [benefit]' format"
+          },
+          "acceptanceCriteria": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "allOf": [
+              { "contains": { "const": "Typecheck passes" } },
+              { "contains": { "const": "Tests pass" } }
+            ],
+            "description": "Verifiable criteria. Must always include 'Typecheck passes' and 'Tests pass'"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Execution order based on dependency, then document order"
+          },
+          "passes": {
+            "type": "boolean",
+            "description": "Whether this story has been completed. Always false in new PRDs"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Runtime notes added by Ralph during execution"
+          }
+        }
+      }
+    }
+  }
+}
