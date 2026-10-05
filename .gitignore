@@ -6,6 +6,8 @@ Thumbs.db
 tasks/.last-output
 tasks/.last-branch
 tasks/archive/
+tasks/.ralph-piano-last
+tasks/ralph-piano.log
 
 # Installed skills (managed by npx skills, not tracked in git)
 .agents/

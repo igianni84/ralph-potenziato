@@ -11,6 +11,7 @@
 3. The setup skill interviews you about your project, tech stack, and business rules, then configures all project files
 4. **Create your first PRD** with `/prd-product` (business requirements) then `/prd-tech` (technical design)
 5. **Run Ralph** for autonomous implementation: `/ralph` then `./ralph.sh`
+6. **Or run a Markdown plan** phase by phase, no JSON: `./ralph-piano.sh plans/{plan}.md`
 
 ## Workflow
 
@@ -49,6 +50,8 @@ CLAUDE.md                      # Project config (tech stack, invariants, quality
     references/                # Shared methodology (interview, writing protocol)
 RALPH.md                       # Autonomous agent instructions
 ralph.sh                       # Autonomous loop script
+RALPH-PIANO.md                 # Agent instructions for the plan loop
+ralph-piano.sh                 # Loop over the phases of a Markdown plan
 prd.schema.json                # JSON Schema for PRD validation
 knowledge/                     # Domain knowledge accumulation
   INDEX.md
@@ -73,6 +76,9 @@ Two-step PRD process separating business requirements from technical design:
 
 ### Ralph (Autonomous Agent)
 Iteratively implements user stories from a PRD JSON. Each iteration picks the next unfinished story, implements with tests, runs the quality loop, and commits. See `README_RALPH.md` for details.
+
+### Ralph Piano (plan loop)
+Same loop, but the unit of work is a **phase of a Markdown plan** instead of a JSON story: `./ralph-piano.sh plans/{plan}.md [max]`. The plan is the only state: its `> **Stato**` line and its `## Consegne tra le fasi` handoff block, rewritten by each phase for the next one. The loop stops with `GATE` whenever a phase needs a human (push, deploy, decision, manual test, failure) and with `PIANO_COMPLETO` when nothing is left. See `RALPH-PIANO.md`.
 
 ### Knowledge System
 Accumulates domain insights across sessions in `knowledge/{domain}/`:
